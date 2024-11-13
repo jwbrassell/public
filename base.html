@@ -5,56 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
-    <style>
-        body {
-            display: grid;
-            grid-template-rows: auto 1fr; /* Header takes auto height, content stretches */
-            grid-template-columns: 280px 1fr; /* Sidebar fixed width, content stretches */
-            grid-template-areas: 
-                "header header"
-                "sidebar content";
-            min-height: 100vh;
-            margin: 0;
-        }
-        header {
-            grid-area: header;
-            width: 100%;
-        }
-        .sidebar {
-            grid-area: sidebar;
-            background-color: #343a40; /* Dark background for sidebar */
-            color: white;
-            padding: 1rem;
-        }
-        .content-area {
-            grid-area: content;
-            padding: 1rem;
-        }
-    </style>
 </head>
-<body>
-    <header class="p-3 border-bottom bg-light">
+<body class="d-flex flex-column vh-100">
+
+    <!-- Header -->
+    <header class="bg-light border-bottom">
         <div class="container-fluid">
-            <div class="d-flex flex-wrap align-items-center justify-content-between">
-                <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+            <div class="d-flex align-items-center justify-content-between p-3">
+                <a href="#" class="text-dark text-decoration-none d-flex align-items-center">
                     <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <!-- SVG content here -->
+                        <!-- SVG content -->
                     </svg>
+                    <span>Flask App</span>
                 </a>
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 link-secondary">Backups</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">Tools</a></li>
+                <ul class="nav">
+                    <li class="nav-item"><a href="#" class="nav-link text-secondary">Backups</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-dark">Tools</a></li>
                 </ul>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
                 {% if current_user.is_authenticated %}
-                <div class="dropdown text-end">
-                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdown_User_1"
+                <div class="dropdown">
+                    <a href="#" class="d-block text-dark dropdown-toggle" id="dropdown_User_1"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://link-to-profile-pic" alt="User" width="32" height="32" class="rounded-circle">
                     </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdown_User_1">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown_User_1">
                         <li><a class="dropdown-item" href="#">New Thing</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -66,32 +43,46 @@
         </div>
     </header>
 
-    <div class="sidebar">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Sidebar">
-                <!-- SVG content here -->
-            </svg>
-            <span class="fs-4">The Sidebar</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="#" class="nav-link active text-white" aria-current="page">
-                    <svg class="bi me-2" width="16" height="16">
-                        <!-- SVG content here -->
-                    </svg>
-                    Home
-                </a>
-            </li>
-            <!-- Additional sidebar links -->
-        </ul>
+    <!-- Main Layout -->
+    <div class="container-fluid flex-grow-1 d-flex">
+        <!-- Sidebar -->
+        <nav class="bg-dark text-white flex-shrink-0 p-3" style="width: 280px;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Sidebar">
+                    <!-- SVG content -->
+                </svg>
+                <span class="fs-5">Sidebar</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active text-white" aria-current="page">
+                        <svg class="bi me-2" width="16" height="16">
+                            <!-- SVG content -->
+                        </svg>
+                        Home
+                    </a>
+                </li>
+                <!-- Additional sidebar links -->
+                <li class="nav-item"><a href="#" class="nav-link text-white">Dashboard</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white">Settings</a></li>
+            </ul>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="flex-grow-1 p-4">
+            {% block content %}
+            <!-- Page-specific content will go here -->
+            {% endblock %}
+        </main>
     </div>
 
-    <div class="content-area">
-        {% block content %}
-        <!-- Page-specific content will go here -->
-        {% endblock %}
-    </div>
+    <!-- Footer -->
+    <footer class="bg-light text-center border-top py-3">
+        <div class="container-fluid">
+            <span class="text-muted">&copy; 2024 Flask App</span>
+        </div>
+    </footer>
 
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </body>
