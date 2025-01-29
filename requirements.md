@@ -2,7 +2,7 @@
 
 TLDR (Too Long, Didn't Read)
 A highly available Django framework deployed across multiple OpenStack regions, using F5 GTM/LTM for load balancing. Built with traditional web technologies (Bootstrap 5, JavaScript, NO React), featuring LDAP integration and SSO. Emphasis on reusable components, standardized images, and API-first integrations. Supports dark/light modes, comprehensive monitoring, and cross-team development with robust documentation. Data-centric approach using local databases over external API calls, with Redis caching consideration. Includes development, UAT, and production environments with full local development support for Mac/Windows.
-
+```mermaid
 graph TB
     subgraph "Load Balancing"
         F5[F5 GTM/LTM]
@@ -74,7 +74,7 @@ graph TB
     class F5,NGINX primary
     class WEB1,WEB2,DB1,DB2 secondary
     class LDAP,SSO,REDIS,GALERA,JOB,CRON,MON,LOG tertiary
-
+```
 ## System Architecture Principles
 
 ### Monitoring and Response Standards
